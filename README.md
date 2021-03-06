@@ -51,6 +51,9 @@ $ GO111MODULE=on GOPROXY=https://goproxy.cn/,direct go get -u github.com/zeromic
     	}
     )
     
+    @server(
+    	tag: "用户管理"
+    )
     service user-api {
     	@doc(
     		summary: "注册"

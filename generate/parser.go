@@ -3,13 +3,14 @@ package generate
 import (
 	"bytes"
 	"fmt"
-	"github.com/tal-tech/go-zero/tools/goctl/api/spec"
-	plugin2 "github.com/tal-tech/go-zero/tools/goctl/plugin"
 	"net/http"
 	"reflect"
 	"strconv"
 	"strings"
 	"unsafe"
+
+	"github.com/tal-tech/go-zero/tools/goctl/api/spec"
+	plugin2 "github.com/tal-tech/go-zero/tools/goctl/plugin"
 )
 
 var (
@@ -153,7 +154,12 @@ func renderServiceRoutes(service spec.Service, groups []spec.Group, paths swagge
 			if value := group.GetAnnotation("group"); len(value) > 0 {
 				tags = value
 			}
+			if value := group.GetAnnotation("tag"); len(value) > 0 {
+				tags = value
+			}
+			summary, _ := strconv.Unquote(route.AtDoc.Properties["summary"])
 			operationObject := &swaggerOperationObject{
+				Summary:    summary,
 				Tags:       []string{tags},
 				Parameters: parameters,
 				Responses: swaggerResponsesObject{
